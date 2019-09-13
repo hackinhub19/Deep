@@ -52,39 +52,9 @@ def auto_calc(f):
     forcast=m.predict(future)
     result.append(forcast[['ds','yhat','yhat_lower','yhat_upper']])
     models.append(m)
-
+  
 b=list(map(auto_calc,[x[1] for x in use]))
 
 final_result=list(zip(name,result))
+models[2].plot(final_result[2][1])
 
-from tkinter import *
-my_window=Tk()
-my_window.title('SALES FORCASTING')
-my_window.configure(width=500,height=500,background='yellow')
-my_window.geometry('600x500+400+100')
-
-label1=Label(my_window,text='enter the outlet name',font='Verdana',width=30,borderwidth=1,relief='ridge')
-entry1=Entry(my_window)
-label2=Label(my_window,text='enter the product name',font='Verdana',width=30,borderwidth=1,relief='ridge')
-entry2=Entry(my_window)
-
-def get_input():
-    outlet_name=entry1.get()
-    product_name=entry2.get()
-    m=[i for i in range(10) if name[i]==(outlet_name,product_name)][0]
-    final_result[m][1].to_csv(r'Desktop\forecast_result.csv')
-    label3=Label(my_window,font='Verdana 10',width=50,borderwidth=1,relief='ridge',bg='pink')
-    label3['text']=('forcasted data of outlet {}\nproduct {} is saved on desktop'.format(outlet_name,product_name))
-    label3.grid(row=3,column=0)
-    
-button1=Button(my_window,text='click to get result',command=get_input,bg='blue',fg='white',font='Times',borderwidth=1,relief='solid')
-    
-label1.grid(row=0,column=0)
-entry1.grid(row=0,column=1)
-label2.grid(row=1,column=0)
-entry2.grid(row=1,column=1)
-button1.grid(row=2,column=0)
-
-my_window.mainloop()
-
-#abelar hightower, cottage cheese
